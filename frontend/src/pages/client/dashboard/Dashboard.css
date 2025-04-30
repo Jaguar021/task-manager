@@ -1,0 +1,65 @@
+/* Dashboard.css */
+.dashboard-container {
+    position: relative;
+  top: 10px;
+  left: 10px;
+  width: calc(100% - 20px);
+  min-height: 100vh;
+  background-color: #F1F5F9;
+  }
+  
+  .page-heading {
+    position: relative;
+  top: 40px;
+  left: 40px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #1F2937;
+  display: flex;
+  justify-content: space-between;
+  width: calc(100% - 80px);
+  align-items: center;
+  }
+  
+  .charts-container {
+    margin-top: 100px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  
+  .chart-tile {
+    background-color: #FFFFFF;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    width: calc(50% - 10px);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .chart-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #1F2937;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  
+  .pie-tile, .bar-tile {
+    background-color: #F9FAFB; /* Lighter background for both charts */
+  }
+  
+  .chart-tile canvas {
+    width: 100%;
+    height: 200px; /* Fixed height for better chart display */
+  }
+  
+  @media (max-width: 768px) {
+    .chart-tile {
+      width: 100%;
+    }
+  }
+  

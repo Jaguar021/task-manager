@@ -1,0 +1,198 @@
+/* Reset default margin & padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  html, body {
+    font-family: Arial, sans-serif;
+    background-color: #F1F5F9; /* Main screen background - Slightly off-white */
+    height: 100%;
+    //overflow: hidden;
+  }
+  
+  /* Full page layout */
+  .layout {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  
+  /* Topbar */
+  .topbar {
+    background-color: #FFFFFF; /* White background */
+    color: #333333;             /* Dark text */
+    height: 60px;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    width: 100%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid #D1D5DB; /* Light gray border */
+  }
+  
+  .topbar .logo {
+    font-size: 30px;
+    font-weight: bold;
+    color: rgb(48, 43, 43); /* Darker text for logo */
+    margin: auto 0;
+  }
+  
+  /* Grid layout for sidebar and main content */
+  .container {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    height: 100vh;
+    width: 100vw;
+    flex: 1;
+  }
+  
+  /* Sidebar Styling */
+  .sidebar {
+    background: #F8FAFC;   /* Light background */
+    color: #333333;        /* Dark text */
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-right: 1px solid #D1D5DB; /* Light gray border */
+  }
+  
+  /* Profile Tile */
+  .profile-tile {
+    background: transparent;
+    padding: 15px;
+    margin: 20px 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border: none;
+    border-radius: 8px;
+    width: calc(100% - 10px);
+    box-shadow: none;
+  }
+  
+  .profile-pic {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+  }
+  
+  .profile-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .user-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333333;
+  }
+  
+  .user-role {
+    font-size: 14px;
+    color: #6B7280;
+    margin-top: 10px;
+  }
+  
+  /* Edit Icon Button */
+  .profile-tile button {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+  }
+  
+  .profile-tile button img {
+    width: 16px;
+    height: 16px;
+    opacity: 0.7;
+    transition: opacity 0.2s ease-in-out;
+  }
+  
+  .profile-tile button:hover img {
+    opacity: 1;
+  }
+  
+  /* Button container */
+  .options {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: space-between;
+  }
+  
+  .up{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  /* Sidebar Buttons */
+  #opts {
+    background: transparent;
+    color: #333333;
+    border: 1px solid transparent;
+    padding: 20px;
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.3s;
+  }
+  
+  #opts:hover {
+    background: #F1F5F9;
+    border-color: #4B5563;
+  }
+  
+  /* Main Content */
+  .main {
+    background: #F1F5F9;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .main h1 {
+    color: #333333;
+  }
+  
+  /* Sidebar Buttons */
+  .sidebar-btn {
+    background: transparent;
+    color: #333333;
+    border: 1px solid transparent;
+    padding: 12px 20px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px; /* space between icon and text */
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.3s;
+    justify-content: flex-start; /* align content to the left */
+  }
+  
+  .sidebar-btn:hover {
+    background: #F1F5F9;
+    border-color: #4B5563;
+  }
+  
+  .sidebar-btn img {
+    width: 18px;
+    height: 18px;
+    opacity: 0.8;
+  }

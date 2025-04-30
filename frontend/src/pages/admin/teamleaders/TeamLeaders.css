@@ -1,0 +1,91 @@
+.team-leaders-container {
+    padding: 24px;
+    background-color: #f9fafb;
+  }
+  
+  h2 {
+    color: #2c3e50;
+    margin-bottom: 24px;
+    font-size: 28px;
+    font-weight: 600;
+    text-align: center;
+  }
+  
+  .leader-card {
+    background-color: #ffffff;
+    border: 1px solid #e1e1e1;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+    transition: 0.2s ease-in-out;
+  }
+  
+  .leader-card:hover {
+    box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+  }
+  
+  .leader-card h3 {
+    margin-bottom: 10px;
+    color: #34495e;
+    font-size: 20px;
+    font-weight: 600;
+  }
+  
+  .leader-card p {
+    margin: 6px 0;
+    color: #555;
+    font-size: 15px;
+  }
+  
+  .project-select {
+    padding: 8px 12px;
+    margin-top: 12px;
+    border-radius: 8px;
+    border: 1px solid #bbb;
+    font-size: 14px;
+    width: 100%;
+    max-width: 300px;
+    cursor: pointer;
+    background-color: #fefefe;
+    transition: border 0.2s ease;
+  }
+  
+  .project-select:focus {
+    border-color: #3498db;
+    outline: none;
+  }
+  
+  .no-leaders,
+  .no-projects-msg,
+  .loading,
+  .busy-msg {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #888;
+  }
+  
+  .busy-msg {
+    color: #e74c3c;
+    font-weight: 500;
+  }
+  
+  .status {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 3px 8px;
+    border-radius: 8px;
+    font-size: 12px;
+    color: white;
+    text-transform: capitalize;
+  }
+  
+  .status.available {
+    background-color: #2ecc71;
+  }
+  
+  .status.busy {
+    background-color: #e74c3c;
+  }
+  

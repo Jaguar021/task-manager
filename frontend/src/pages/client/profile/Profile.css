@@ -1,0 +1,75 @@
+.client-profile-container {
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .client-profile-card {
+    display: flex;
+    gap: 20px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
+  
+  .client-profile-img {
+    width: 140px;
+    height: 140px;
+    border-radius: 100px;
+    object-fit: cover;
+    border: 2px solid #ccc;
+  }
+  
+  .client-profile-info {
+    flex: 1;
+  }
+  
+  .client-profile-info h2 {
+    margin: 0;
+    font-size: 24px;
+  }
+  
+  .client-profile-info h4 {
+    color: #666;
+    margin-top: 4px;
+    font-weight: normal;
+  }
+  
+  .client-profile-info p {
+    margin: 8px 0;
+  }
+  
+  .client-profile-info input {
+    display: block;
+    width: 100%;
+    padding: 6px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+  }
+  
+  .edit-btn {
+    margin-top: 10px;
+    background-color: #007bff;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .edit-btn:hover {
+    background-color: #0056b3;
+  }
+  .image-upload-label {
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    border-radius: 6px;
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  

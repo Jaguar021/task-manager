@@ -1,0 +1,64 @@
+/* Employees.css */
+
+.employees-wrapper {
+    padding: 20px;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden; /* Prevent overflowing content */
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .employees-page-heading {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .employees-main-content {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .employees-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 20px;
+    width: 100%;
+  }
+  
+  .employee-tile {
+    background: white;
+    padding: 15px;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    text-align: center;
+  }
+  
+  .employee-profile-pic {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+  }
+  
+  .employee-name {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .employee-email {
+    margin-top: 5px;
+    color: #6b7280;
+    font-size: 14px;
+  }
+  
+  .employee-skills {
+    margin-top: 10px;
+    color: #6b7280;
+    font-size: 14px;
+  }
+  

@@ -1,0 +1,145 @@
+/* TeamLeaderAllProjects.css */
+
+.teamleader-project-wrapper {
+  padding: 20px;
+  width: 100vw;
+  height: 100vh;
+}
+
+.teamleader-page-heading {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.teamleader-main-content {
+  display: flex;
+  gap: 20px;
+}
+
+.teamleader-projects-section {
+  flex: 3;
+}
+
+.teamleader-subtasks-section {
+  flex: 2;
+  background: #f9fafb;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  max-height: calc(100vh - 40px); /* Adjust for padding */
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.teamleader-project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 15px;
+}
+
+.teamleader-project-tile {
+  background: white;
+  padding: 15px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.teamleader-project-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.teamleader-project-description {
+  margin-top: 5px;
+  color: #6b7280;
+}
+
+.teamleader-project-priority,
+.teamleader-project-due-date {
+  margin-top: 5px;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.teamleader-show-subtasks-btn {
+  margin-top: 10px;
+  padding: 8px 12px;
+  background-color: rgba(59, 130, 246, 0.2);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.teamleader-add-subtask-btn {
+  margin-bottom: 15px;
+  padding: 8px 12px;
+  background-color: rgba(59, 130, 246, 0.2);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.teamleader-add-subtask-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.teamleader-add-subtask-form input,
+.teamleader-add-subtask-form textarea {
+  padding: 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+}
+
+.teamleader-subtask-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.teamleader-subtask-tile {
+  background: white;
+  padding: 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+}
+
+.teamleader-assign-btn {
+  margin-top: 10px;
+  padding: 6px 10px;
+  background-color: rgba(59, 130, 246, 0.2);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.teamleader-employee-dropdown {
+  display: flex;
+  flex-direction: column;
+  background: white;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  margin-top: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.teamleader-dropdown-item {
+  padding: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.teamleader-dropdown-item:hover {
+  background-color: #e5e7eb;
+}
+
+.teamleader-assigned-to {
+  margin-top: 10px;
+  font-weight: bold;
+  color: green;
+}

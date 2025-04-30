@@ -1,0 +1,100 @@
+/* Reset default margin & padding */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  font-family: Arial, sans-serif;
+  background-color: #F1F5F9; /* Main screen background - Slightly off-white */
+  height: 100%;
+}
+
+/* Wrapper for consistent layout and positioning */
+.new-project-wrapper {
+  position: relative;  /* Absolute positioning to control exact placement */
+  top: 0px;           /* 10px gap from the top */
+  left: 0px;          /* 10px gap from the left */
+  width: 100vw; /* Ensures it takes full width minus the 10px gap on both sides */
+  min-height: 100vh;   /* Ensures the wrapper takes full height */
+}
+/* Top-left heading */
+.page-heading {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #1F2937; /* Tailwind slate-800 */
+  z-index: 10;
+}
+
+/* Main container for the form */
+.new-project-container {
+  background-color: #FFFFFF;
+  padding: 30px 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  width: 900px;
+  max-width: 95%;
+  margin: 100px 0 0 ; /* Top margin for heading and left gap of 15px */
+}
+
+/* Form styles */
+.new-project-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Label and input styling */
+.new-project-form label {
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+  color: #374151; /* Tailwind gray-700 */
+}
+
+.new-project-form input,
+.new-project-form textarea,
+.new-project-form select {
+  padding: 10px 12px;
+  margin-top: 8px;
+  font-size: 15px;
+  border: 1px solid #D1D5DB;
+  border-radius: 6px;
+  background-color: #F9FAFB;
+  transition: border-color 0.3s;
+  color: #1F2937;
+}
+
+/* Reduced height of description field */
+.new-project-form textarea {
+  height: 80px; /* You can tweak this further if needed */
+  resize: vertical;
+}
+
+.new-project-form input:focus,
+.new-project-form textarea:focus,
+.new-project-form select:focus {
+  outline: none;
+  border-color: #3B82F6;
+}
+
+/* Submit button */
+.new-project-form button {
+  padding: 12px 16px;
+  font-size: 16px;
+  background-color: #3B82F6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  align-self: flex-start;
+}
+
+.new-project-form button:hover {
+  background-color: #2563EB;
+}

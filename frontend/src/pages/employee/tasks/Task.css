@@ -1,0 +1,61 @@
+.task-wrapper {
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .task-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .task-loading,
+  .no-tasks {
+    font-size: 18px;
+    color: #555;
+  }
+  
+  .task-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .task-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  }
+  
+  .task-details h3 {
+    margin: 0 0 5px;
+  }
+  
+  .task-details p {
+    margin: 4px 0;
+    color: #444;
+  }
+  
+  .task-status {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+  }
+  
+  .task-status label {
+    font-weight: 500;
+  }
+  
+  .task-status select {
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    cursor: pointer;
+  }
+  

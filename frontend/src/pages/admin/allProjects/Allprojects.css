@@ -1,0 +1,48 @@
+ /* Reuse styles if Project.css exists */
+
+.filter-buttons button.active {
+  background-color: rgba(59, 130, 246, 0.3);
+  font-weight: bold;
+}
+
+.project-client {
+  font-size: 14px;
+  color: #6B7280;
+}
+
+.dropdown {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  background: white;
+  padding: 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  margin-top: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.dropdown-item {
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.dropdown-item:hover {
+  background-color: #e5e7eb;
+}
+
+.profile-pic {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.assigned-section {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+}

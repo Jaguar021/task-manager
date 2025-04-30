@@ -1,0 +1,389 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  background-color: #0D0B1A;
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.homepage {
+  width: 100vw;
+  height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Navbar styles */
+.navbar {
+  position: relative;
+  width: 100vw;
+  height: 60px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #120B2C;
+  padding: 0 40px;
+  box-sizing: border-box;
+  z-index: 2;
+}
+
+.background-img {
+  position: absolute;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  filter: brightness(0.45); /* adds the black tint */
+  z-index: -1;
+}
+
+.logo {
+  font-size: 28px;
+  font-weight: bold;
+  color: #EDE9FF;
+  z-index: 1;
+}
+
+/* Navigation buttons */
+.nav-buttons {
+  display: flex;
+  gap: 20px;
+  z-index: 1;
+}
+
+.nav-btn {
+  background: transparent;
+  border: 1px grey;
+  color: #F3E8FF;
+  padding: 10px 18px;
+  font-size: 16px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+/* Yellow halo effect on hover */
+.nav-btn:hover {
+  background: #9333EA;
+  box-shadow: 0 0 10px 2px #D58CFF; /* glow effect */
+  border-color:#D58CFF;
+}
+
+
+/* Main content */
+.content {
+  //background-color: #0F172A;
+  width: 100%;
+  height: calc(100vh - 60px);
+  display: flex;
+  align-items: flex-start; /* changed from center */
+  justify-content: center;
+  color: white;
+  padding-top: 20px; /* add spacing below navbar */
+}
+
+
+.content-overlay h1 {
+  font-size: 48px;
+  font-weight: bold;
+  animation: dropFromTop 0.2s ease-out;
+  text-align: center;
+  color: #EDE9FF;
+}
+@keyframes dropFromTop {
+  0% {
+    transform: translateY(-100px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(20px);
+    opacity: 1;
+  }
+}
+/* Tile containers stacked vertically with spacing and padding */
+.tile1,
+.tile2 {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 50px;
+  padding: 30px;
+  box-sizing: border-box;
+}
+
+/* Shared styles for each square box inside a tile */
+.tile1 > div,
+.tile2 > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 45%;
+  height: 300px;
+  background-color: #1A162E;
+  border: 2px #2C254B;
+  border-radius: 12px;
+  padding: 20px;
+  box-sizing: border-box;
+  transition: transform 0.3s ease;
+  opacity: 0; /* initially hidden */
+  animation-duration: 2s;
+  animation-fill-mode: forwards; /* Ensure the div stays in its final position */
+}
+
+/* Hover effect */
+.tile1 > div:hover,
+.tile2 > div:hover {
+  transform: translateY(-5px);
+  border-color:#DA70D6;
+  box-shadow: 0 0 10px 3px #5D3FD3;
+}
+
+/* Image styling */
+.tile1 img,
+.tile2 img {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+}
+
+/* Text styling */
+.tile1 p,
+.tile2 p {
+  font-size: 15px;
+  line-height: 1.4;
+  color: #B8AEE0;
+  text-align: justify;
+  margin: 0;
+  padding: 0 15px;
+  flex: 1;
+  overflow: auto;
+}
+
+/* Layout: Image left, text right for first div */
+.tile1 > div:first-child,
+.tile2 > div:first-child {
+  flex-direction: row;
+  animation-name: slideFromLeft; /* Animation for left div */
+}
+
+/* Layout: Image right, text left for second div */
+.tile1 > div:last-child,
+.tile2 > div:last-child {
+  flex-direction: row-reverse;
+  animation-name: slideFromRight; /* Animation for right div */
+}
+
+/* Left div sliding in from the left */
+@keyframes slideFromLeft {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Right div sliding in from the right */
+@keyframes slideFromRight {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Sign div styling */
+.sign {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 500px; /* Optional: Limits the width of the sign box */
+  padding-bottom: 20px;
+  margin: 0 auto; /* Center the div horizontally */
+  margin-top: 10px; /* Add space between tile2 and sign */
+  //background-color: black;
+  text-align: center;
+}
+
+.sign h2 {
+  font-size: 32px;
+  font-weight: bold;
+  color: #EDE9FF;
+  margin-bottom: 20px; /* Spacing between h2 and buttons */
+}
+
+/* Buttons container */
+.buttons {
+  display: flex;
+  gap: 20px; /* Space between buttons */
+  justify-content: center; /* Center the buttons horizontally */
+}
+
+/* Login button */
+.buttons button:first-child {
+  background: transparent;
+  border: 2px solid white;
+  color: white;
+  padding: 12px 30px;
+  font-size: 16px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Signup button */
+.buttons button:last-child {
+  background-color: #9333EA;
+  border: none;
+  color: #F3E8FF;
+  padding: 12px 30px;
+  font-size: 16px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Button hover effect */
+.buttons button:hover {
+  //transform: translateY(-5px);
+  box-shadow: 0 0 10px 2px #D58CFF;
+}
+
+.buttons button:first-child:hover {
+  border-color: #D58CFF;
+  //color: #D58CFF;
+}
+
+.footer {
+  background-color: #120B2C;
+  color: #B8AEE0;
+  padding: 2rem 1rem;
+  margin-top: 3rem;
+  border-top: 1px solid #2C254B;
+}
+
+.footer-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.footer-section h3,
+.footer-logo {
+  color: #EDE9FF;
+  margin-bottom: 0.8rem;
+}
+
+.footer-link,
+.social-icon {
+  background: none;
+  color: #B8AEE0;
+  border: none;
+  cursor: pointer;
+  margin: 0.3rem 0;
+  font-size: 0.95rem;
+  transition: color 0.3s ease;
+}
+
+.footer-link:hover,
+.social-icon:hover {
+  color: #D58CFF;
+}
+
+.footer-tagline {
+  font-size: 0.9rem;
+  margin-top: 0.3rem;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 2rem;
+  border-top: 1px solid #2C254B;
+  padding-top: 1rem;
+  font-size: 0.85rem;
+  color: #8C82B6;
+}
+.footer {
+  background-color: #120B2C;
+  color: #B8AEE0;
+  padding: 2rem 1rem;
+  margin-top: 3rem;
+  border-top: 1px solid #2C254B;
+}
+
+.footer-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.footer-section h3,
+.footer-logo {
+  color: #EDE9FF;
+  margin-bottom: 0.8rem;
+}
+
+.footer-link,
+.social-icon {
+  background: none;
+  color: #B8AEE0;
+  border: none;
+  cursor: pointer;
+  margin: 0.3rem 0;
+  font-size: 0.95rem;
+  transition: color 0.3s ease;
+}
+
+.footer-link:hover,
+.social-icon:hover {
+  color: #D58CFF;
+}
+
+.footer-tagline {
+  font-size: 0.9rem;
+  margin-top: 0.3rem;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 2rem;
+  border-top: 1px solid #2C254B;
+  padding-top: 1rem;
+  font-size: 0.85rem;
+  color: #8C82B6;
+}
+.auth-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+
+
+
+
+
+
+
+

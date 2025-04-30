@@ -1,0 +1,73 @@
+.pending-projects-container {
+    padding: 20px;
+    background-color: #f9f9f9;
+  }
+  
+  h2 {
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .project-card {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .project-card:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .project-card h3 {
+    margin-bottom: 10px;
+    color: #444;
+  }
+  
+  .project-card p {
+    margin: 5px 0;
+    color: #666;
+  }
+  
+  .action-buttons {
+    margin-top: 12px;
+    display: flex;
+    gap: 10px;
+  }
+  
+  button.approve {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  button.reject {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  button.approve:hover {
+    background-color: #45a049;
+  }
+  
+  button.reject:hover {
+    background-color: #e53935;
+  }
+  
+  .loading,
+  .no-projects {
+    color: #777;
+    text-align: center;
+    padding: 20px;
+  }
+  
