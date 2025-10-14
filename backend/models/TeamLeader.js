@@ -29,7 +29,13 @@ const teamLeaderSchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true
-  }
+  },
+  employees: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Employee'
+    }
+  ]
 }, { timestamps: true });
 
 module.exports = mongoose.model('TeamLeader', teamLeaderSchema);

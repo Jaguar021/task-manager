@@ -9,7 +9,7 @@ const employeeSchema = new mongoose.Schema({
   },
   image: {
     type: String,
-    default: '/default-profile.png', // fallback for frontend
+    default: '/default-profile.png',
   },
   name: {
     type: String,
@@ -40,9 +40,14 @@ const employeeSchema = new mongoose.Schema({
     trim: true,
   },
   skills: {
-    type: [String], // array of strings, can vary per person
+    type: [String],
     default: [],
   },
+  teamLeader: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'TeamLeader',
+    default: null // You can replace `null` with a specific ObjectId if needed
+  }
 }, { timestamps: true });
 
 module.exports = mongoose.model('Employee', employeeSchema);

@@ -14,7 +14,7 @@ body {
   gap: 1rem;
 }
 
-#field {
+#usn-field, #pas-field {
     padding: 10px;
     font-size: 1rem;
     border: 1px  #9333EA;;

@@ -1,51 +1,99 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Team.css";
-
-const teamData = [
-  {
-    name: "Alpha Team",
-    leader: "John Doe",
-    pending: 2,
-    ongoing: 3,
-    completed: 5,
-    members: [
-      { name: "Alice", image: "/images/alice.jpg" },
-      { name: "Bob", image: "/images/bob.jpg" },
-      { name: "Charlie", image: "/images/charlie.jpg" },
-      { name: "David", image: "/images/david.jpg" },
-      { name: "Ella", image: "/images/ella.jpg" },
-      { name: "Frank", image: "/images/frank.jpg" },
-    ],
-  },
-];
-
-const teamLeaders = [
-  {
-    name: "John Doe",
-    email: "john@company.com",
-    phone: "123-456-7890",
-    team: "Alpha Team",
-    image: "/images/john.jpg",
-  },
-];
-
-const employees = [
-  {
-    name: "Alice",
-    email: "alice@company.com",
-    phone: "222-333-4444",
-    team: "Alpha Team",
-    leader: "John Doe",
-    image: "/images/alice.jpg",
-  },
-];
+import TeamModal from "./TeamModel/TeamModel";
+import AddEmployeeModal from "./TeamModel/AddEmployeeModal";
 
 const Team = () => {
-  const [section, setSection] = useState("teams");
-  const [visibleTeamIndex, setVisibleTeamIndex] = useState(null);
+  const [section, setSection] = useState("leaders");
+  const [teamLeaders, setTeamLeaders] = useState([]);
+  const [unassignedEmployees, setUnassignedEmployees] = useState([]);
+  const [activeLeader, setActiveLeader] = useState(null); // For Team modal
+  const [assignModalLeader, setAssignModalLeader] = useState(null); // For Add modal
 
-  const toggleMembers = (index) => {
-    setVisibleTeamIndex(visibleTeamIndex === index ? null : index);
+  // Fetch team leaders
+  useEffect(() => {
+    const fetchTeamLeaders = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/teamleaders/team-leaders");
+        const data = await response.json();
+        setTeamLeaders(data);
+      } catch (error) {
+        console.error("Error fetching team leaders:", error);
+      }
+    };
+    fetchTeamLeaders();
+  }, []);
+
+  // Fetch unassigned employees
+  useEffect(() => {
+    const fetchUnassignedEmployees = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/teamleaders/unassigned");
+        const data = await response.json();
+        setUnassignedEmployees(data);
+      } catch (error) {
+        console.error("Error fetching unassigned employees:", error);
+      }
+    };
+    fetchUnassignedEmployees();
+  }, []);
+
+  // Assign employee to team leader
+  const assignEmployee = async (leaderId, employeeId) => {
+    try {
+      const res = await fetch(
+        `http://localhost:5000/api/teamleaders/${leaderId}/assign/${employeeId}`,
+        { method: "PUT" }
+      );
+      const data = await res.json();
+
+      if (res.ok) {
+        // Remove from unassigned
+        setUnassignedEmployees(prev => prev.filter(emp => emp._id !== employeeId));
+
+        // Add to leader
+        setTeamLeaders(prev =>
+          prev.map(leader =>
+            leader._id === leaderId
+              ? { ...leader, employees: [...leader.employees, data.updatedEmployee] }
+              : leader
+          )
+        );
+      }
+    } catch (err) {
+      console.error("Error assigning employee:", err);
+    }
+  };
+
+  // Remove employee from team leader
+  const handleRemove = async (leaderId, employeeId) => {
+    try {
+      const res = await fetch(
+        `http://localhost:5000/api/teamleaders/${leaderId}/remove/${employeeId}`,
+        { method: "DELETE" }
+      );
+
+      const data = await res.json();
+
+      if (res.ok) {
+        // Update leader's employee list
+        setTeamLeaders(prev =>
+          prev.map(leader =>
+            leader._id === leaderId
+              ? {
+                  ...leader,
+                  employees: leader.employees.filter(emp => emp._id !== employeeId)
+                }
+              : leader
+          )
+        );
+
+        // Add to unassigned
+        setUnassignedEmployees(prev => [...prev, data.updatedEmployee]);
+      }
+    } catch (err) {
+      console.error("Error removing employee from team:", err);
+    }
   };
 
   return (
@@ -53,12 +101,6 @@ const Team = () => {
       <h1 className="page-heading">
         Team Management
         <div className="filter-buttons">
-          <button
-            className={section === "teams" ? "active" : ""}
-            onClick={() => setSection("teams")}
-          >
-            Teams
-          </button>
           <button
             className={section === "leaders" ? "active" : ""}
             onClick={() => setSection("leaders")}
@@ -75,78 +117,56 @@ const Team = () => {
       </h1>
 
       <div className="project-tiles">
-        {section === "teams" &&
-          teamData.map((team, index) => (
-            <div className="project-tile" key={index}>
-              <h3 className="project-title">{team.name}</h3>
-              <p className="project-description">
-                Team Leader: <strong>{team.leader}</strong>
-              </p>
-              <div className="status-bubbles">
-                <span className="pending">{team.pending} Pending</span>
-                <span className="ongoing">{team.ongoing} Ongoing</span>
-                <span className="completed">{team.completed} Completed</span>
-              </div>
-
-              <div
-                className="member-previews"
-                onClick={() => toggleMembers(index)}
-              >
-                {team.members.slice(0, 5).map((member, i) => (
-                  <img
-                    key={i}
-                    className="profile-pic"
-                    src={member.image}
-                    title={member.name}
-                  />
-                ))}
-                {team.members.length > 5 && (
-                  <span className="more-members">
-                    +{team.members.length - 5}
-                  </span>
-                )}
-              </div>
-              {visibleTeamIndex === index && (
-                <div className="member-list">
-                  {team.members.map((m, i) => (
-                    <p key={i}>{m.name}</p>
-                  ))}
+        {section === "leaders" && (
+          <>
+            {teamLeaders.map((leader) => (
+              <div className="project-tile" key={leader._id}>
+                <h3 className="project-title">{leader.name}</h3>
+                <div style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
+                  <button onClick={() => setActiveLeader(leader)}>Team</button>
+                  <button onClick={() => setAssignModalLeader(leader)}>Add</button>
                 </div>
-              )}
-            </div>
-          ))}
-
-        {section === "leaders" &&
-          teamLeaders.map((leader, index) => (
-            <div className="project-tile" key={index}>
-              <img
-                className="profile-pic large"
-                src={leader.image}
-                alt="leader"
-              />
-              <h3 className="project-title">{leader.name}</h3>
-              <p>Email: {leader.email}</p>
-              <p>Phone: {leader.phone}</p>
-              <p>Team: {leader.team}</p>
-            </div>
-          ))}
+              </div>
+            ))}
+          </>
+        )}
 
         {section === "employees" &&
-          employees.map((emp, index) => (
-            <div className="project-tile" key={index}>
-              <img
-                className="profile-pic large"
-                src={emp.image}
-                alt="employee"
-              />
-              <h3 className="project-title">{emp.name}</h3>
-              <p>Email: {emp.email}</p>
-              <p>Phone: {emp.phone}</p>
-              <p>Team: {emp.team}</p>
-              <p>Team Leader: {emp.leader}</p>
-            </div>
-          ))}
+          teamLeaders.flatMap((leader) =>
+            leader.employees.map((emp) => (
+              <div className="project-tile" key={emp._id}>
+                <img
+                  className="profile-pic large"
+                  src={emp.image || "/default-profile.png"}
+                  alt="employee"
+                />
+                <h3 className="project-title">{emp.name}</h3>
+                <p>Email: {emp.email || "N/A"}</p>
+                <p>Phone: {emp.phone || "N/A"}</p>
+                <p>Team Leader: {leader.name}</p>
+              </div>
+            ))
+          )}
       </div>
+
+      {/* Modal for viewing assigned employees */}
+      {activeLeader && (
+        <TeamModal
+          leader={activeLeader}
+          onClose={() => setActiveLeader(null)}
+          onRemove={handleRemove}
+        />
+      )}
+
+      {/* Modal for assigning employees */}
+      {assignModalLeader && (
+        <AddEmployeeModal
+          leader={assignModalLeader}
+          unassignedEmployees={unassignedEmployees}
+          onAssign={assignEmployee}
+          onClose={() => setAssignModalLeader(null)}
+        />
+      )}
     </div>
   );
 };

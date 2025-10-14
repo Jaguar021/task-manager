@@ -44,10 +44,21 @@ const projectSchema = new mongoose.Schema({
     default: 'Pending',
     required: true
   },
+  admin_status: {
+    type: String,
+    enum: ['pending approval', 'unassigned', 'assigned'],
+    default: 'pending approval',
+    required: true
+  },
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true
+  },
+  teamLeader: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User', // Assuming team leaders are also users
+    default: null
   }
 }, {
   timestamps: true

@@ -1,22 +1,5 @@
-import React, { useState } from "react";
-import "./Allprojects.css";
-
-const dummyProjects = [
-  {
-    title: "Website Revamp",
-    description: "Update the corporate website with new branding.",
-    priority: "High",
-    dueDate: "2025-06-15",
-    subtasks: [],
-  },
-  {
-    title: "Mobile App Launch",
-    description: "Develop and launch new mobile app for e-commerce.",
-    priority: "Medium",
-    dueDate: "2025-07-01",
-    subtasks: [],
-  },
-];
+import React, { useEffect, useState } from "react";
+import "./AllProjects.css";
 
 const dummyEmployees = [
   { name: "Alice Johnson", skills: ["React", "Node.js"] },
@@ -24,31 +7,60 @@ const dummyEmployees = [
 ];
 
 const Allprojects = () => {
-  const [projects, setProjects] = useState(dummyProjects);
+  const [projects, setProjects] = useState([]);
   const [selectedProjectIndex, setSelectedProjectIndex] = useState(null);
-  const [showAddSubtask, setShowAddSubtask] = useState(false);
-  const [newSubtask, setNewSubtask] = useState({ title: "", description: "", dueDate: "" });
-  const [assigningSubtaskIndex, setAssigningSubtaskIndex] = useState(null);
 
-  const handleShowSubtasks = (index) => {
-    setSelectedProjectIndex(index);
-    setShowAddSubtask(false);
-    setAssigningSubtaskIndex(null);
-  };
+  useEffect(() => {
+    const userData = JSON.parse(localStorage.getItem("userData"));
+    if (!userData || !userData.userId || !userData.token) {
+      console.error("User not authenticated.");
+      return;
+    }
 
-  const handleAddSubtask = () => {
-    const updatedProjects = [...projects];
-    updatedProjects[selectedProjectIndex].subtasks.push({ ...newSubtask, assignedTo: null });
-    setProjects(updatedProjects);
-    setNewSubtask({ title: "", description: "", dueDate: "" });
-    setShowAddSubtask(false);
-  };
+    const token = userData.token;
 
-  const handleAssignEmployee = (subtaskIndex, employee) => {
-    const updatedProjects = [...projects];
-    updatedProjects[selectedProjectIndex].subtasks[subtaskIndex].assignedTo = employee;
-    setProjects(updatedProjects);
-    setAssigningSubtaskIndex(null);
+    const fetchProjects = async () => {
+      try {
+        const leaderRes = await fetch(`http://localhost:5000/api/teamleader/by-user/${userData.userId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json"
+          }
+        });
+
+        if (!leaderRes.ok) throw new Error("Failed to fetch TeamLeader");
+
+        const leaderData = await leaderRes.json();
+        const teamLeaderId = leaderData._id;
+
+        const res = await fetch(`http://localhost:5000/api/projects/team-leader/${teamLeaderId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json"
+          }
+        });
+
+        if (!res.ok) throw new Error("Failed to fetch projects");
+
+        const data = await res.json();
+        const projectsWithSubtasks = data.map(project => ({
+          ...project,
+          subtasks: []
+        }));
+        setProjects(projectsWithSubtasks);
+      } catch (err) {
+        console.error("Error fetching projects:", err);
+      }
+    };
+
+    fetchProjects();
+  }, []);
+
+  const getPriorityClass = (priority) => {
+    if (priority === "High") return "priority-high";
+    if (priority === "Medium") return "priority-medium";
+    if (priority === "Low") return "priority-low";
+    return "";
   };
 
   return (
@@ -56,94 +68,25 @@ const Allprojects = () => {
       <h1 className="teamleader-page-heading">All Projects</h1>
 
       <div className="teamleader-main-content">
-        {/* Left 60% */}
         <div className="teamleader-projects-section">
           <div className="teamleader-project-grid">
             {projects.map((project, index) => (
-              <div className="teamleader-project-tile" key={index}>
+              <div
+                className="teamleader-project-tile"
+                key={index}
+                onClick={() => setSelectedProjectIndex(index)}
+              >
                 <h3 className="teamleader-project-title">{project.title}</h3>
                 <p className="teamleader-project-description">{project.description}</p>
-                <p className="teamleader-project-priority">Priority: {project.priority}</p>
-                <p className="teamleader-project-due-date">Due Date: {project.dueDate}</p>
-                <button
-                  className="teamleader-show-subtasks-btn"
-                  onClick={() => handleShowSubtasks(index)}
-                >
-                  Show Subtasks
-                </button>
+                <p className={`teamleader-project-priority ${getPriorityClass(project.priority)}`}>
+                  Priority: {project.priority}
+                </p>
+                <p className="teamleader-project-due-date">
+                  Due Date: {project.dueDate?.slice(0, 10)}
+                </p>
               </div>
             ))}
           </div>
-        </div>
-
-        {/* Right 40% */}
-        
-        <div className="teamleader-subtasks-section">
-          {selectedProjectIndex !== null && (
-            <>
-              <button
-                className="teamleader-add-subtask-btn"
-                onClick={() => setShowAddSubtask(!showAddSubtask)}
-              >
-                {showAddSubtask ? "Cancel" : "Add Subtask"}
-              </button>
-
-              {showAddSubtask && (
-                <div className="teamleader-add-subtask-form">
-                  <input
-                    type="text"
-                    placeholder="Title"
-                    value={newSubtask.title}
-                    onChange={(e) => setNewSubtask({ ...newSubtask, title: e.target.value })}
-                  />
-                  <textarea
-                    placeholder="Description"
-                    value={newSubtask.description}
-                    onChange={(e) => setNewSubtask({ ...newSubtask, description: e.target.value })}
-                  ></textarea>
-                  <input
-                    type="date"
-                    value={newSubtask.dueDate}
-                    onChange={(e) => setNewSubtask({ ...newSubtask, dueDate: e.target.value })}
-                  />
-                  <button onClick={handleAddSubtask}>Create Subtask</button>
-                </div>
-              )}
-
-              <div className="teamleader-subtask-grid">
-                {projects[selectedProjectIndex].subtasks.map((subtask, idx) => (
-                  <div className="teamleader-subtask-tile" key={idx}>
-                    <h4>{subtask.title}</h4>
-                    <p>{subtask.description}</p>
-                    <p>Due: {subtask.dueDate}</p>
-
-                    {subtask.assignedTo ? (
-                      <p className="teamleader-assigned-to">Assigned to: {subtask.assignedTo.name}</p>
-                    ) : assigningSubtaskIndex === idx ? (
-                      <div className="teamleader-employee-dropdown">
-                        {dummyEmployees.map((emp, eIndex) => (
-                          <div
-                            key={eIndex}
-                            className="teamleader-dropdown-item"
-                            onClick={() => handleAssignEmployee(idx, emp)}
-                          >
-                            {emp.name} ({emp.skills.join(", ")})
-                          </div>
-                        ))}
-                      </div>
-                    ) : (
-                      <button
-                        className="teamleader-assign-btn"
-                        onClick={() => setAssigningSubtaskIndex(idx)}
-                      >
-                        Assign
-                      </button>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </>
-          )}
         </div>
       </div>
     </div>

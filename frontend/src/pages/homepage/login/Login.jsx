@@ -44,14 +44,14 @@ const Login = ({ closeWindow }) => {
       />
       <form className="inForm" onSubmit={handleSubmit}>
         <input
-          id="field"
+          id="usn-field"
           type="text"
           placeholder="username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
         <input
-          id="field"
+          id="pas-field"
           type="password"
           placeholder="password"
           value={password}

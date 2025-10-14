@@ -1,3 +1,4 @@
+/* Reset and base styles */
 * {
   margin: 0;
   padding: 0;
@@ -10,34 +11,28 @@ html, body {
   height: 100%;
 }
 
-.team-wrapper {
-  position: relative;
-  top: 10px;
-  left: 10px;
-  width: calc(100% - 20px);
-  min-height: 100vh;
+.project-wrapper {
+  padding: 20px;
   background-color: #F1F5F9;
+  min-height: 100vh;
 }
 
 .page-heading {
-  position: absolute;
-  top: 40px;
-  left: 40px;
   font-size: 28px;
   font-weight: bold;
   color: #1F2937;
   display: flex;
   justify-content: space-between;
-  width: calc(100% - 80px);
   align-items: center;
+  margin-bottom: 40px;
 }
 
-.section-buttons {
+.filter-buttons {
   display: flex;
   gap: 10px;
 }
 
-.section-buttons button {
+.filter-buttons button {
   padding: 8px 18px;
   border: none;
   background-color: rgba(59, 130, 246, 0.1);
@@ -48,19 +43,18 @@ html, body {
   transition: all 0.3s ease;
 }
 
-.section-buttons button:hover {
+.filter-buttons button:hover,
+.filter-buttons button.active {
   background-color: rgba(59, 130, 246, 0.3);
 }
 
-.section-content {
-  margin-top: 100px;
-  padding: 0 15px;
+.project-tiles {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 20px;
 }
 
-.team-card {
+.project-tile {
   background-color: #ffffff;
   padding: 20px;
   border-radius: 10px;
@@ -70,108 +64,64 @@ html, body {
   gap: 10px;
 }
 
-.team-name {
+.project-title {
   font-size: 18px;
   font-weight: bold;
   color: #1F2937;
 }
 
-.leader-name {
-  font-size: 14px;
-  font-weight: bold;
-  color: #6B7280;
-}
-
-.status-bubbles {
-  display: flex;
-  gap: 20px;
-  font-weight: bold;
-  margin: 10px 0;
-}
-
-.status-bubbles span {
-  font-size: 14px;
-}
-
-.status-bubbles span.pending {
-  color: #f59e0b !important;
-}
-
-.status-bubbles span.ongoing {
-  color: #10b981 !important;
-}
-
-.status-bubbles span.completed {
-  color: #1f2937 !important;
-}
-
-.member-previews {
-  display: flex;
-  align-items: center;
+.member-list {
   margin-top: 10px;
-  cursor: pointer;
-  position: relative;
 }
 
-.member-previews .profile-pic {
+.member-list p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #1F2937;
+}
+
+.profile-pic {
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  border: 2px solid white;
   object-fit: cover;
-  position: relative;
-  margin-left: -10px;
-  transition: transform 0.2s ease;
+  border: 2px solid white;
+  margin-right: 8px;
 }
 
-.member-previews .profile-pic:first-child {
-  margin-left: 0;
-}
-
-.member-previews .profile-pic:hover {
-  z-index: 1;
-  transform: scale(1.1);
-}
-
-.more-members {
-  margin-left: 8px;
-  font-size: 14px;
-  background-color: #d1d5db;
-  border-radius: 50%;
-  padding: 6px 10px;
-  color: #1F2937;
-}
-
-.profile-tile {
-  background-color: #ffffff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  align-items: center;
-  text-align: center;
-}
-
-.profile-pic-large {
+.profile-pic.large {
   width: 64px;
   height: 64px;
-  border-radius: 50%;
-  object-fit: cover;
   border: 3px solid #93C5FD;
 }
 
-.profile-name {
-  font-size: 16px;
-  font-weight: bold;
+/* Unified button styling */
+button {
+  padding: 8px 18px;
+  border: none;
+  background-color: rgba(59, 130, 246, 0.1);
   color: #1F2937;
+  font-size: 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-.profile-email,
-.profile-phone,
-.profile-team,
-.profile-leader {
-  font-size: 14px;
-  color: #6B7280;
+button:hover,
+button.active {
+  background-color: rgba(59, 130, 246, 0.3);
+}
+
+.project-tile button {
+  margin-right: 8px;
+}
+
+/* Optional delete button style */
+button.delete {
+  background-color: transparent;
+  color: red;
+  font-size: 18px;
+  padding: 0;
+  border: none;
+  cursor: pointer;
 }

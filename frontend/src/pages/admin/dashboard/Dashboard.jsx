@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Pie, Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -23,48 +23,63 @@ ChartJS.register(
 );
 
 const Dashboard = () => {
-  // Pie Chart 1: Project Overview
+  const [projects, setProjects] = useState([]);
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/adminProjects");
+        if (!response.ok) throw new Error("Failed to fetch projects");
+        const data = await response.json();
+        setProjects(data);
+      } catch (error) {
+        console.error("Error fetching projects:", error);
+      }
+    };
+
+    fetchProjects();
+  }, []);
+
+  const total = projects.length;
+  const accepted = projects.filter(p => p.status === "Ongoing" || p.status === "Completed").length;
+  const pending = projects.filter(p => p.status === "Pending").length;
+
+  const assigned = projects.filter(p => p.user).length;
+  const unassigned = accepted - assigned;
+
+  const low = projects.filter(p => p.priority === "Low").length;
+  const medium = projects.filter(p => p.priority === "Medium").length;
+  const high = projects.filter(p => p.priority === "High").length;
+
   const pieData1 = {
     labels: ["Total Projects", "Accepted", "Pending"],
     datasets: [
       {
-        data: [100, 70, 30], // Example data
+        data: [total, accepted, pending],
         backgroundColor: ["#4B9EFB", "#10B981", "#F59E0B"],
         hoverOffset: 4,
       },
     ],
   };
 
-  // Pie Chart 2: Assigned vs Unassigned in Accepted
   const pieData2 = {
     labels: ["Accepted Projects", "Assigned", "Unassigned"],
     datasets: [
       {
-        data: [70, 50, 20], // Example data
+        data: [accepted, assigned, unassigned],
         backgroundColor: ["#10B981", "#3B82F6", "#EF4444"],
         hoverOffset: 4,
       },
     ],
   };
 
-  // Bar Chart: Priority
   const barData = {
     labels: ["Low", "Medium", "High"],
     datasets: [
       {
-        label: "Low Priority",
-        data: [10, 0, 0],
-        backgroundColor: "#10B981",
-      },
-      {
-        label: "Medium Priority",
-        data: [0, 25, 0],
-        backgroundColor: "#F59E0B",
-      },
-      {
-        label: "High Priority",
-        data: [0, 0, 15],
-        backgroundColor: "#EF4444",
+        label: "Priority Distribution",
+        data: [low, medium, high],
+        backgroundColor: ["#10B981", "#F59E0B", "#EF4444"],
       },
     ],
   };
@@ -94,24 +109,12 @@ const Dashboard = () => {
       <div className="dashboard-charts">
         <div className="dashboard-chart-tile dashboard-pie-tile">
           <h3 className="dashboard-chart-title">Project Overview</h3>
-          <Pie
-            data={pieData1}
-            options={{
-              responsive: true,
-              plugins: { legend: { position: "top" } },
-            }}
-          />
+          <Pie data={pieData1} options={{ responsive: true, plugins: { legend: { position: "top" } } }} />
         </div>
 
         <div className="dashboard-chart-tile dashboard-pie-tile">
           <h3 className="dashboard-chart-title">Project Assignment</h3>
-          <Pie
-            data={pieData2}
-            options={{
-              responsive: true,
-              plugins: { legend: { position: "top" } },
-            }}
-          />
+          <Pie data={pieData2} options={{ responsive: true, plugins: { legend: { position: "top" } } }} />
         </div>
 
         <div className="dashboard-chart-tile dashboard-bar-tile">
